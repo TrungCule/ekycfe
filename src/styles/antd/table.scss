@@ -1,0 +1,25 @@
+.ant-table-thead {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.ant-table-thead .ant-table-cell {
+  padding: 0.57rem 1.14rem;
+  font-weight: 700;
+  background-color: var(--white);
+  border-top: 1px solid var(--grey-200);
+  border-bottom: 1px solid var(--grey-200);
+  text-align: center;
+  white-space: break-spaces;
+}
+
+.ant-table-tbody .ant-table-cell {
+  vertical-align: top;
+}
+
+.ant-table-thead
+  > tr
+  > th:not(:last-child, .ant-table-selection-column, .ant-table-row-expand-icon-cell, [colspan])::before {
+  content: none;
+}

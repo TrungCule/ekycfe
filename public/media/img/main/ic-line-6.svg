@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+  <g id="ic-line-6" transform="translate(1876 -527)">
+    <path id="Path_149" data-name="Path 149" d="M0,0H32V32H0Z" transform="translate(-1876 527)" fill="none"/>
+    <path id="Path_150" data-name="Path 150" d="M27,10V27.324a1.333,1.333,0,0,1-1.324,1.343H4.324A1.324,1.324,0,0,1,3,27.344V3.323A1.339,1.339,0,0,1,4.336,2H19Zm-2.667,1.333H17.667V4.667h-12V26H24.333ZM9.667,8.667h4v2.667h-4Zm0,5.333H20.333v2.667H9.667Zm0,5.333H20.333V22H9.667Z" transform="translate(-1875 527.667)" fill="#fff"/>
+  </g>
+</svg>

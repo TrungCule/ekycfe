@@ -1,0 +1,10 @@
+.custom-table .ant-table-thead > tr > th {
+    background-color: #004466;
+    color: white;
+  }
+  
+  .custom-table .ant-pagination {
+    display: flex;
+    justify-content: center;
+  }
+ 

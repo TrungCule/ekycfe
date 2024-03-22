@@ -1,0 +1,25 @@
+.ant-modal .ant-modal-content {
+  padding: 0;
+}
+
+.ant-modal .ant-modal-header {
+  position: relative;
+  padding: 0.71rem 1.71rem;
+  background-color: var(--primary);
+}
+
+.ant-modal .ant-modal-title {
+  color: var(--white);
+  text-align: center;
+  font-weight: 600;
+}
+
+.ant-modal .ant-modal-close-x {
+  line-height: 2.5rem;
+  height: 2.5rem;
+  color: var(--white);
+}
+
+.ant-modal .ant-modal-body {
+  padding: 0.85rem 1.71rem 0;
+}

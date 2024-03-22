@@ -1,0 +1,24 @@
+.custom-menu-dropdown .ant-dropdown-menu-submenu-title {
+  display: flex;
+  align-items: center;
+}
+
+.custom-menu .ant-menu-submenu.ant-menu-submenu-horizontal,
+.custom-menu .ant-menu-overflow-item.ant-menu-item {
+  display: flex;
+  align-items: center;
+}
+
+.custom-menu .ant-menu-submenu.ant-menu-submenu-horizontal:hover,
+.custom-menu .ant-menu-overflow-item.ant-menu-item:hover,
+.custom-menu .ant-menu-overflow-item.ant-menu-submenu.ant-menu-submenu-horizontal.ant-menu-submenu-selected,
+.custom-menu .ant-menu-overflow-item.ant-menu-item.ant-menu-item-selected {
+  background: var(--white);
+  border: none;
+  color: var(--primary);
+}
+
+.custom-menu .ant-menu-submenu-title .ant-menu-item-icon,
+.custom-menu .ant-menu-item .ant-menu-item-icon {
+  font-size: 20px;
+}

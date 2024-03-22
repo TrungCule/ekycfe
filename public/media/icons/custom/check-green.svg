@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+  <g id="Group_17801" data-name="Group 17801" transform="translate(-555 -445)">
+    <circle id="Ellipse_1" data-name="Ellipse 1" cx="12" cy="12" r="12" transform="translate(555 445)" fill="#29a339"/>
+    <g id="_24x24-Check" data-name="24x24-Check" transform="translate(-9466 449)">
+      <rect id="Frame24" width="16" height="16" transform="translate(10025)" fill="#fff" opacity="0"/>
+      <path id="check" d="M5.928,10.477a.6.6,0,1,0-.868.828l2.382,2.5a.6.6,0,0,0,.89-.024l5.727-6.691a.6.6,0,1,0-.912-.78l-5.1,5.963a.267.267,0,0,1-.4.011Z" transform="translate(10023.439 -2.097)" fill="#fff"/>
+    </g>
+  </g>
+</svg>
