@@ -5,7 +5,7 @@ export const getUsers = () => {
 };
 
 export const updateUser = (params: any, id: string) => {
-  return api.put(`/users/${ id}`, params);
+  return api.put(`/users/${id}`, params);
 };
 
 export const resetPassword = (params: any) => {
@@ -13,7 +13,7 @@ export const resetPassword = (params: any) => {
 };
 
 export const deleteUser = (params: { id: string }) => {
-  return api.delete(`/users/${ params.id}`);
+  return api.delete(`/users/${params.id}`);
 };
 
 export const getUserInfo = () => {
