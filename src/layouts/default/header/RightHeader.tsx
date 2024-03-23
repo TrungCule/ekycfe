@@ -10,11 +10,15 @@ import { UserOutlined } from '@ant-design/icons';
 export default function RightHeader() {
   const items: MenuProps['items'] = [
     {
-      key: 'questions',
-      label: 'Quản lý câu hỏi',
-    },
-    {
       key: 'users',
+      label: 'Quản lý users',
+    },
+    // {
+    //   key: 'questions',
+    //   label: 'Quản lý câu hỏi',
+    // }, /account/change-password
+    {
+      key: 'change_password',
       label: 'Thay đổi mật khẩu',
     },
     {
@@ -47,9 +51,10 @@ export default function RightHeader() {
   const getAuth = async () => {
     const result: any = await getUserInfo();
     if (result.error) message.error(result.error);
-    dispatch(setUserName(result));
+    dispatch(setUserName(result.data));
   };
   const { username, role } = useAppSelector((state) => state.auth);
+  console.log(username, role);
 
   const handleLogOut = async () => {
     if (typeof window !== 'undefined') localStorage.clear();
@@ -71,7 +76,7 @@ export default function RightHeader() {
         <Dropdown
           trigger={['click']}
           menu={{
-            items: role === 112 ? items : userItems,
+            items: role.map((r) => r.name).includes('ROLE_ADMIN') ? items : userItems,
             className: 'custom-menu-dropdown',
             onClick: (menuItem) => {
               if (menuItem.key === 'logout') {

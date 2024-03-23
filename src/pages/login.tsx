@@ -51,8 +51,8 @@ export default function Login() {
     const result: any = await getUserInfo();
 
     if (result.error) message.error(result.error);
-
-    dispatch(setUserName(result));
+    console.log(result);
+    dispatch(setUserName(result.data));
   };
 
   const handleFinish = async (values) => {
@@ -67,8 +67,9 @@ export default function Login() {
     //   // localStorage.setItem('refresh_token', result?.data?.refreshToken);
     // } else {
     const result: any = await login(values);
+    console.log(result);
     if (result?.error) return message.error(result?.error);
-    localStorage.setItem('token', result?.token);
+    localStorage.setItem('token', result?.id_token);
     // localStorage.setItem('refresh_token', result?.refresh_token);
     // }
     getAuth();

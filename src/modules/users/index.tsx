@@ -24,20 +24,26 @@ export default function Users() {
     },
     {
       title: 'Tài khoản',
-      dataIndex: 'username',
-      key: 'user_name',
+      dataIndex: 'login',
+      key: 'login',
       editable: true,
     },
     {
-      title: 'Họ tên',
-      dataIndex: 'fullName',
-      key: 'fullName',
+      title: 'First Name',
+      dataIndex: 'firstName',
+      key: 'firstName',
+      editable: true,
+    },
+    {
+      title: 'Last Name',
+      dataIndex: 'lastName',
+      key: 'lastName',
       editable: true,
     },
     {
       title: 'Số điện thoại',
-      dataIndex: 'phone_number',
-      key: 'phone_number',
+      dataIndex: 'phoneNumber',
+      key: 'phoneNumber',
       editable: false,
     },
     {
@@ -48,21 +54,21 @@ export default function Users() {
     },
     {
       title: 'Đang hoạt động',
-      dataIndex: 'isActive',
-      key: 'isActive',
+      dataIndex: 'activated',
+      key: 'activated',
       editable: true,
       render: (_, record) => {
-        return <span>{record?.is_active ? 'Đang hoạt động' : 'Đã khóa'}</span>;
+        return <span>{record?.activated ? 'Đang hoạt động' : 'Đã khóa'}</span>;
       },
     },
     {
       title: 'Date of Birth',
-      dataIndex: 'date_of_birth',
-      key: 'date_of_birth',
+      dataIndex: 'dateOfBirth',
+      key: 'dateOfBirth',
       editable: true,
       render: (_, record) => {
         // Create a new Date object using the timestamp
-        const date = new Date(record?.date_of_birth);
+        const date = new Date(record?.dateOfBirth);
 
         // Use Date methods to get the components of the date
         const day = date.getDate();
@@ -76,10 +82,10 @@ export default function Users() {
       },
       onCell: (record) => ({
         record,
-        dataIndex: 'date_of_birth',
+        dataIndex: 'dateOfBirth',
         title: 'Date of Birth',
         editing: isEditing(record),
-        dateOfBirth: record?.date_of_birth, // Pass the value to the EditableCell component
+        dateOfBirth: record?.dateOfBirth, // Pass the value to the EditableCell component
       }),
     },
     {
@@ -88,7 +94,7 @@ export default function Users() {
       key: 'role',
       editable: true,
       render: (_, record) => {
-        return <span>{ROLE_MAP[record?.role.name]}</span>;
+        return <span>{record?.authorities.includes('ROLE_ADMIN') ? ' Admin' : 'User'}</span>;
       },
     },
     {
@@ -100,7 +106,7 @@ export default function Users() {
         const editable = isEditing(record);
         return editable ? (
           <span>
-            <Button onClick={() => handleUpdate(record.id)} style={{ marginRight: 8 }}>
+            <Button onClick={() => handleUpdate(record.login)} style={{ marginRight: 8 }}>
               Lưu
             </Button>
             <Button title="Sure to cancel?" onClick={cancel}>
@@ -110,10 +116,10 @@ export default function Users() {
         ) : (
           <div className="flex flex-col items-center gap-2">
             {/* <Button disabled={editingKey !== ''} onClick={() => edit(record)}> */}
-            <Button disabled={editingKey !== ''} onClick={() => router.push(`/user/${record.id}`)}>
+            <Button disabled={editingKey !== ''} onClick={() => router.push(`/user/${record.login}`)}>
               Sửa
             </Button>
-            <Popconfirm title="Bạn có chắc chắn xoá?" onConfirm={() => handleDelete(record.id)}>
+            <Popconfirm title="Bạn có chắc chắn xoá?" onConfirm={() => handleDelete(record.login)}>
               <Button danger>Xoá</Button>
             </Popconfirm>
           </div>
@@ -166,7 +172,8 @@ export default function Users() {
         message.error(res.error);
         return [];
       }
-      return res.users;
+      console.log(res);
+      return res;
     },
     {
       staleTime: Infinity,
@@ -197,8 +204,8 @@ export default function Users() {
     refetch();
   };
 
-  const handleDelete = async (id) => {
-    const result: any = await deleteUser({ id });
+  const handleDelete = async (login) => {
+    const result: any = await deleteUser({ login });
     if (result.error) return message.error(result.error);
     refetch();
   };
@@ -216,9 +223,10 @@ export default function Users() {
   const filteredUsers = users
     ? users.filter(
         (user) =>
-          user.username.includes(searchTerm) ||
-          user.fullName.includes(searchTerm) ||
-          user.phone_number.includes(searchTerm)
+          user.login.includes(searchTerm) ||
+          user.firstName.includes(searchTerm) ||
+          user.lastName.includes(searchTerm) ||
+          user.phoneNumber.includes(searchTerm)
       )
     : [];
 

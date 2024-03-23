@@ -13,13 +13,13 @@ interface UserData {
   address: string;
   fullname: string;
   avatar: string;
-  phone_number: string;
+  phoneNumber: string;
   role: {
     id: number;
     name: string;
   };
   is_active: boolean;
-  date_of_birth: number;
+  dateOfBirth: number;
 }
 
 const user_info = () => {
@@ -30,9 +30,10 @@ const user_info = () => {
     const fetchData = async () => {
       try {
         const response: AxiosResponse<UserData> = await getUserInfo();
-        response.date_of_birth = moment(response.date_of_birth); // Convert timestamp to moment
-
-        setData(response);
+        // response.date_of_birth = moment(response.date_of_birth); // Convert timestamp to moment
+        console.log(response);
+        response.data.user.dateOfBirth = moment(response?.data?.user.dateOfBirth);
+        setData(response?.data?.user);
         setLoading(false);
       } catch (error) {
         console.error('Failed to fetch data:', error);
@@ -47,7 +48,7 @@ const user_info = () => {
   }
 
   const onFinish = async (values: any) => {
-    const res: any = await updateUser(values, userData?.id);
+    const res: any = await updateUser(values);
 
     if (res.error) {
       return message.error(res?.error);
@@ -63,7 +64,7 @@ const user_info = () => {
         <Form layout="vertical" className="mt-8" initialValues={userData} onFinish={onFinish}>
           <Row gutter={16}>
             <Col span={8}>
-              <Form.Item label="Username" name="username">
+              <Form.Item label="Username" name="login">
                 <Input
                   disabled
                   placeholder="Username"
@@ -91,15 +92,23 @@ const user_info = () => {
           </Row>
           <Row gutter={16}>
             <Col span={8}>
-              <Form.Item label="Full Name" name="fullName">
+              <Form.Item label="First Name" name="firstName">
                 <Input
-                  placeholder="Full Name"
+                  placeholder="First Name"
                   className="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
                 />
               </Form.Item>
             </Col>
             <Col span={8}>
-              <Form.Item label="Phone Number" name="phone_number">
+              <Form.Item label="Last Name" name="lastName">
+                <Input
+                  placeholder="Last Name"
+                  className="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+                />
+              </Form.Item>
+            </Col>
+            <Col span={8}>
+              <Form.Item label="Phone Number" name="phoneNumber">
                 <Input
                   placeholder="Phone Number"
                   className="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
@@ -107,7 +116,7 @@ const user_info = () => {
               </Form.Item>
             </Col>
             <Col span={8}>
-              <Form.Item label="Date of Birth" name="date_of_birth">
+              <Form.Item label="Date of Birth" name="dateOfBirth">
                 <DatePicker className="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline" />
               </Form.Item>
             </Col>

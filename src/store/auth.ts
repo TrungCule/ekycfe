@@ -11,9 +11,9 @@ export const authSlice = createSlice({
   initialState,
   reducers: {
     setUserName: (state, action) => {
-      state.username = action.payload?.username;
-      state.role = action.payload?.role?.name;
-      state.id = action.payload?.id;
+      state.username = action.payload?.user?.login;
+      state.role = action.payload?.authorities;
+      state.id = action.payload?.user?.id;
     },
   },
 });

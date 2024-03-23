@@ -2,7 +2,10 @@ import hasPermission from '@/hooks/hasPermission';
 import useAuth from '@/hooks/useAuth';
 import Header from '@/layouts/default/header';
 import Navbar from '@/layouts/default/navbar';
-import { Result, Spin } from 'antd';
+import { getUserInfo } from '@/services/puppetService';
+import { setUserName } from '@/store/auth';
+import { useAppDispatch } from '@/store/hook';
+import { Result, Spin, message } from 'antd';
 import { useRouter } from 'next/router';
 import React, { ReactNode, useEffect, useState } from 'react';
 
@@ -14,7 +17,18 @@ const Author: React.FC<Props> = ({ renderContent }) => {
   const [isAllowed, setIsAllowed] = useState<boolean>();
   const router = useRouter();
   const { userInfo } = useAuth();
+
+  const dispatch = useAppDispatch();
+
+  const getAuth = async () => {
+    const result: any = await getUserInfo();
+    if (result.error) message.error(result.error);
+    dispatch(setUserName(result.data));
+    setIsAllowed(hasPermission(router.pathname, result.data));
+  };
+
   useEffect(() => {
+    // getAuth()
     setIsAllowed(hasPermission(router.pathname, userInfo));
   }, [router, userInfo]);
 

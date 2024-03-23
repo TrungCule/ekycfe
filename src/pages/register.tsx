@@ -37,10 +37,10 @@ const RegisterPage = () => {
             <ArrowLeftOutlined onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} />
           </div> */}
           <div className="grid w-full items-center gap-1.5">
-            <label htmlFor="username" className="block my-2 text-sm font-bold text-gray-700">
+            <label htmlFor="login" className="block my-2 text-sm font-bold text-gray-700">
               Username <span className="text-red-500">*</span>
             </label>
-            <Form.Item name="username" rules={[{ required: true, message: 'Username is required' }]}>
+            <Form.Item name="login" rules={[{ required: true, message: 'Username is required' }]}>
               <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" />
             </Form.Item>
           </div>
@@ -94,11 +94,11 @@ const RegisterPage = () => {
 
           <div className="grid w-full items-center gap-1.5">
             <label htmlFor="password" className="block my-2 text-sm font-bold text-gray-700">
-              Full Name <span className="text-red-500">*</span>
+              First Name <span className="text-red-500">*</span>
             </label>
             <Form.Item
               name="fullname"
-              rules={[{ required: true, message: 'Full Name is required' }]}
+              rules={[{ required: true, message: 'First Name is required' }]}
               className="mb-4"
             >
               <Input placeholder="Full Name" />
@@ -107,12 +107,24 @@ const RegisterPage = () => {
 
           <div className="grid w-full items-center gap-1.5">
             <label htmlFor="password" className="block my-2 text-sm font-bold text-gray-700">
-              Phone Number <span className="text-red-500">*</span>
+              Last Name <span className="text-red-500">*</span>
+            </label>
+            <Form.Item
+              name="fullname"
+              rules={[{ required: true, message: 'Last Name is required' }]}
+              className="mb-4"
+            >
+              <Input placeholder="Full Name" />
+            </Form.Item>
+          </div>
+
+          <div className="grid w-full items-center gap-1.5">
+            <label htmlFor="password" className="block my-2 text-sm font-bold text-gray-700">
+              Phone Number
             </label>
             <Form.Item
               name="phone_number"
               rules={[
-                { required: true, message: 'Phone Number is required' },
                 { pattern: /^[0-9]+$/, message: 'Please enter a valid phone number' },
                 { min: 10, message: 'Please enter a valid phone number' },
               ]}

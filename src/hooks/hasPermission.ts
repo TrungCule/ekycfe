@@ -3,12 +3,12 @@ const hasPermission = (pathname, user) => {
   if (listEnableRoutes(pathname)) return true;
 
   const permissions = {
-    '/admin': ['admin'],
-    '/users': ['admin'],
-    '/home': ['admin', 'user'],
-    '/user_info': ['admin', 'user'],
-    '/change_password': ['admin', 'user'],
-    '/user/[id]': ['admin', 'user'],
+    '/admin': ['ROLE_ADMIN'],
+    '/users': ['ROLE_ADMIN'],
+    '/home': ['ROLE_ADMIN', 'ROLE_USER'],
+    '/user_info': ['ROLE_ADMIN', 'ROLE_USER'],
+    '/change_password': ['ROLE_ADMIN', 'ROLE_USER'],
+    '/user/[login]': ['ROLE_ADMIN', 'ROLE_USER'],
     // other routes...
   };
 
@@ -16,7 +16,7 @@ const hasPermission = (pathname, user) => {
 
   if (!allowedRoles) return false;
 
-  return allowedRoles.includes(user.role);
+  return allowedRoles.some((role) => user.authorities.map((i) => i.name).includes(role));
 };
 
 const listEnableRoutes = (pathname) => {
@@ -31,6 +31,8 @@ const listEnableRoutes = (pathname) => {
     '/reset_password',
     '/change_password',
     '/users',
+    '/user_info',
+    '/user/[login]',
   ];
 
   return listRoutes.includes(pathname);

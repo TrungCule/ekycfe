@@ -1,6 +1,6 @@
 import useAuth from '@/hooks/useAuth';
 import PageTitle from '@/modules/users/components/PageTitle';
-import { updateUser } from '@/services/puppetService';
+import { changePassword, updateUser } from '@/services/puppetService';
 import { LockOutlined } from '@ant-design/icons';
 import { Button, Col, Form, Input, Row, message } from 'antd';
 import { useRouter } from 'next/router';
@@ -13,21 +13,23 @@ const change_password = () => {
 
   const onFinish = async (values) => {
     const updateData = {
-      password: values.newPassword,
+      currentPassword: values.oldPassword,
+      newPassword: values.newPassword,
     };
 
-    const result: any = await updateUser(updateData, userInfo?.id);
+    const result: any = await changePassword(updateData);
 
     if (result.error) {
       return message.error(`Update failed: ${result.error.message}`);
     }
     message.success('Password updated successfully');
+    router.push('/home');
   };
 
   return (
     <div className="flex items-center justify-center w-screen h-screen bg-slate-100">
       <div className="px-8 pt-12 pb-8 space-y-12 sm:shadow-xl sm:bg-white rounded-xl">
-        <PageTitle title="Change Passowrd" titleContent="Home / Change Password" />
+        <PageTitle title="Change Passowrd" titleContent="" />
         <div>
           <Form
             name="change_password"

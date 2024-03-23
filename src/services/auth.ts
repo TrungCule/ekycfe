@@ -1,6 +1,7 @@
 import ApiClient from '@/configs/ApiClient';
+import { END_POINT } from '@/constants';
 
-const END_POINT = 'http://localhost:8080/api/';
+// const END_POINT = 'http://localhost:8080/api/';
 
 const api = new ApiClient(END_POINT).getInstance();
 
@@ -9,14 +10,14 @@ export const login = (params: { username: string; password: string }) => {
 };
 
 export const register = (params: any) => {
-  const reqParams = { ...params, role_id: 1 };
+  const reqParams = { ...params };
   return api.post('/register', reqParams);
 };
 
 export const forgetPassword = (params: { email: string }) => {
-  return api.post('/forgetPassword', params);
+  return api.post('/account/reset-password/init', params);
 };
 
-export const resetPassword = (params: { email: string; verify_code: string }) => {
-  return api.post('/forgetPassword/verify', params);
+export const resetPassword = (params: { newPassword: string; key: string }) => {
+  return api.post('/account/reset-password/finish', params);
 };

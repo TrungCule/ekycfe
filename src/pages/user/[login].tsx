@@ -1,5 +1,5 @@
 import PageTitle from '@/modules/users/components/PageTitle';
-import { getUserById, updateUser } from '@/services/puppetService';
+import { adminUpdateUser, getDetailUser, getUserById, updateUser } from '@/services/puppetService';
 import { Button, Col, DatePicker, Form, Image, Input, Row, Select, Spin, Upload, message } from 'antd';
 import { AxiosResponse } from 'axios';
 import { useRouter } from 'next/router';
@@ -30,7 +30,7 @@ const User = () => {
   const [imageUrl, setImageUrl] = useState('');
 
   const router = useRouter();
-  const { id } = router.query;
+  const { login } = router.query;
   const availableRoles = [
     { id: 1, name: 'Người dùng' },
     { id: 2, name: 'Quản trị viên' },
@@ -43,9 +43,11 @@ const User = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const { data }: AxiosResponse<UserData> = await getUserById(id);
-        data.date_of_birth = moment(data?.date_of_birth); // Convert timestamp to moment
-        setData(data);
+        const resp: AxiosResponse<UserData> = await getDetailUser(login);
+        // data.date_of_birth = moment(data?.date_of_birth); // Convert timestamp to moment
+        // resp.dateOfBirth = moment(resp.dateOfBirth)
+        console.log(resp);
+        setData(resp);
         setLoading(false);
       } catch (error) {
         console.error('Failed to fetch data:', error);
@@ -53,7 +55,7 @@ const User = () => {
     };
 
     fetchData();
-  }, [id]);
+  }, [login]);
 
   // useEffect(() => {
   //   if (userData && !userData.role) {
@@ -69,7 +71,7 @@ const User = () => {
     delete values.role;
     console.log('Form values submitted:', values);
 
-    const res: any = await updateUser(values, id);
+    const res: any = await adminUpdateUser(values);
 
     if (res.error) {
       return message.error(res?.error);
@@ -134,9 +136,8 @@ const User = () => {
         <Form layout="vertical" className="mt-8" initialValues={userData} onFinish={onFinish}>
           <Row gutter={16}>
             <Col span={8}>
-              <Form.Item label="Username" name="username">
+              <Form.Item label="Username" name="login">
                 <Input
-                  disabled
                   placeholder="Username"
                   className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 />
@@ -145,7 +146,6 @@ const User = () => {
             <Col span={8}>
               <Form.Item label="Email" name="email">
                 <Input
-                  disabled
                   placeholder="Email"
                   className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 />
@@ -162,15 +162,23 @@ const User = () => {
           </Row>
           <Row gutter={16}>
             <Col span={8}>
-              <Form.Item label="Full Name" name="fullName">
+              <Form.Item label="First Name" name="firstName">
                 <Input
-                  placeholder="Full Name"
+                  placeholder="First Name"
                   className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 />
               </Form.Item>
             </Col>
             <Col span={8}>
-              <Form.Item label="Phone Number" name="phone_number">
+              <Form.Item label="Last Name" name="lastName">
+                <Input
+                  placeholder="Last Name"
+                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                />
+              </Form.Item>
+            </Col>
+            <Col span={8}>
+              <Form.Item label="Phone Number" name="phoneNumber">
                 <Input
                   placeholder="Phone Number"
                   className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -178,7 +186,7 @@ const User = () => {
               </Form.Item>
             </Col>
             <Col span={8}>
-              <Form.Item label="Date of Birth" name="date_of_birth">
+              <Form.Item label="Date of Birth" name="dateOfBirth">
                 <DatePicker className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
               </Form.Item>
             </Col>

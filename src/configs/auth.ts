@@ -1,8 +1,9 @@
 import ApiClient from '@/configs/ApiClient';
+import { END_POINT } from '@/constants';
 import { message } from 'antd';
 
-const AUTH_API = 'http://localhost:8088/api/v1';
-const api = new ApiClient(AUTH_API).getInstance();
+// const AUTH_API = 'http://localhost:8088/api/v1';
+const api = new ApiClient(END_POINT).getInstance();
 
 export const getTokenId = () => {
   const accessToken = JSON.parse(localStorage.getItem('token') || '');
@@ -23,7 +24,7 @@ export const getRefreshToken = async () => {
 
 export const login = (nextFn = () => {}) => {
   try {
-    api.post('/login');
+    api.post('/authenticate');
     nextFn();
   } catch (e) {
     // console.log(e);
