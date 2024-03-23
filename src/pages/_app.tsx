@@ -28,7 +28,7 @@ export default function App({ Component, pageProps }) {
                 <DefaultLayout>
                   <Author renderContent={<Component {...pageProps} />} />
                   {/* <Componesnt {...pageProps} /> */}
-                </DefaultLayout> 
+                </DefaultLayout>
               </main>
             </div>
           </ErrorBoundary>

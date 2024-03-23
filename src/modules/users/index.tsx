@@ -214,13 +214,13 @@ export default function Users() {
   };
 
   const filteredUsers = users
-  ? users.filter(
-      (user) =>
-        user.username.includes(searchTerm) ||
-        user.fullName.includes(searchTerm) ||
-        user.phone_number.includes(searchTerm)
-    )
-  : [];
+    ? users.filter(
+        (user) =>
+          user.username.includes(searchTerm) ||
+          user.fullName.includes(searchTerm) ||
+          user.phone_number.includes(searchTerm)
+      )
+    : [];
 
   return (
     <div className="py-8 overflow-y-auto px-28 flex flex-col gap-4 items-start mx-auto min-w-full">

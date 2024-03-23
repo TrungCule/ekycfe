@@ -21,7 +21,7 @@ const Authen: React.FC<Props> = ({ children }) => {
 
     handleAuthLogin();
   }, [router]);
-  
+
   return <Author renderContent={children} />;
 };
 

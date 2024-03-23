@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 import RightHeader from './RightHeader';
 import { ReactNode } from 'react';
-import useAuth from '@/hooks/useAuth';
+// import useAuth from '@/hooks/useAuth';
 
 interface IProps {
   children: ReactNode;
@@ -30,8 +30,7 @@ export default function Header({ children }: IProps) {
         {/* Add this */}
         <div className="flex justify-between">
           <div className="text-[3rem] mr-5 inline-flex">
-            <div onClick={navigateToHome}>
-            </div>
+            <div onClick={navigateToHome}></div>
           </div>
           <RightHeader />
         </div>

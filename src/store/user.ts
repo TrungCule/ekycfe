@@ -15,7 +15,7 @@ export const userSlice = createSlice({
     setSocketID: (state, action) => {
       state.socketID = action.payload;
     },
-  },    
+  },
 });
 
 export const { setName, setSocketID } = userSlice.actions;

@@ -33,5 +33,5 @@ export {
   ShopIcon,
   TruckIcon,
   UserIcon,
-  LockIcon
+  LockIcon,
 };

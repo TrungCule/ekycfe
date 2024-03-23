@@ -6,12 +6,13 @@ export default function Home() {
   useEffect(() => {
     const isAuthenticated = !!localStorage.getItem('token');
 
-    if (isAuthenticated) {
-      router.push('/home');
-    } else {
-      router.push('/login');
-    }
-  }, []);
+    // if (isAuthenticated) {
+    //   router.push('/home');
+    // } else {
+    //   router.push('/login');
+    // }
+    router.push('/home');
+  }, [router]);
 
   return null;
 }

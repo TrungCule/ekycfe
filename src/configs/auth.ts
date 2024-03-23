@@ -1,7 +1,7 @@
 import ApiClient from '@/configs/ApiClient';
 import { message } from 'antd';
 
-const AUTH_API = `http://localhost:8088/api/v1`;
+const AUTH_API = 'http://localhost:8088/api/v1';
 const api = new ApiClient(AUTH_API).getInstance();
 
 export const getTokenId = () => {

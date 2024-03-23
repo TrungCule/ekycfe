@@ -20,16 +20,16 @@ const Author: React.FC<Props> = ({ renderContent }) => {
 
   if (typeof isAllowed === 'undefined')
     return (
-      <div className="flex h-screen items-center justify-center">
+      <div className="flex items-center justify-center h-screen">
         <Spin />
       </div>
     );
 
   return (
     <div className="flex overflow-x-hidden max-h-[100vh]">
-      <main className="overflow-hidden flex-1 flex flex-col">
+      <main className="flex flex-col flex-1 overflow-auto">
         {!isAllowed ? (
-          <div className="flex-1 flex items-center justify-center">
+          <div className="flex items-center justify-center flex-1">
             <Result status="403" title="403" subTitle="Xin lỗi, bạn không có quyền truy cập trang web này." />
           </div>
         ) : (

@@ -1,10 +1,8 @@
-import BaseScreenComponent from '@/components/common/BaseScreenComponent'
-import React from 'react'
+import BaseScreenComponent from '@/components/common/BaseScreenComponent';
+import React from 'react';
 
 const base = () => {
-  return (
-    <BaseScreenComponent />
-  )
-}
+  return <BaseScreenComponent />;
+};
 
-export default base
+export default base;

@@ -75,7 +75,7 @@ export default function CreateUser({ open, onCancel, onOk }) {
 
         <div className="mb-2">
           <label htmlFor="fullname" className="block text-gray-700 text-sm font-bold mb-2">
-          Họ tên <span className="text-red-500">*</span>
+            Họ tên <span className="text-red-500">*</span>
           </label>
           <Form.Item
             name="fullname"
@@ -88,7 +88,7 @@ export default function CreateUser({ open, onCancel, onOk }) {
 
         <div className="mb-2">
           <label htmlFor="phone_number" className="block text-gray-700 text-sm font-bold mb-2">
-          Số điện thoại <span className="text-red-500">*</span>
+            Số điện thoại <span className="text-red-500">*</span>
           </label>
           <Form.Item
             name="phone_number"
@@ -104,7 +104,7 @@ export default function CreateUser({ open, onCancel, onOk }) {
 
         <div className="mb-2">
           <label htmlFor="address" className="block text-gray-700 text-sm font-bold mb-2">
-          Địa chỉ
+            Địa chỉ
           </label>
           <Form.Item name="address" className="mb-4">
             <Input placeholder="Địa chỉ" />
@@ -113,7 +113,7 @@ export default function CreateUser({ open, onCancel, onOk }) {
 
         <div className="mb-2">
           <label htmlFor="date_of_birth" className="block text-gray-700 text-sm font-bold mb-2">
-          Ngày sinh
+            Ngày sinh
           </label>
           <Form.Item name="date_of_birth" className="mb-4">
             <DatePicker placeholder="Ngày sinh" style={{ width: '100%' }} />

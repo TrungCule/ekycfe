@@ -42,27 +42,24 @@ const user_info = () => {
     fetchData();
   }, []);
 
-
   if (loading) {
     return <div>Loading...</div>; // Render a loading message while data is being fetched
   }
 
   const onFinish = async (values: any) => {
-    console.log('Form values submitted:', values);
-
     const res: any = await updateUser(values, userData?.id);
 
     if (res.error) {
       return message.error(res?.error);
     }
 
-    return message.success('Cập nhật thông tin thành công');
+    return message.success('Successfully updated');
   };
 
   return (
     <>
       <div className="px-28">
-        <PageTitle title="Thông tin cá nhân" titleContent="Trang chủ  / Thông tin cá nhân" />
+        <PageTitle title="Personal information" titleContent="" />
         <Form layout="vertical" className="mt-8" initialValues={userData} onFinish={onFinish}>
           <Row gutter={16}>
             <Col span={8}>
@@ -70,7 +67,7 @@ const user_info = () => {
                 <Input
                   disabled
                   placeholder="Username"
-                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  className="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
                 />
               </Form.Item>
             </Col>
@@ -79,7 +76,7 @@ const user_info = () => {
                 <Input
                   disabled
                   placeholder="Email"
-                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  className="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
                 />
               </Form.Item>
             </Col>
@@ -87,7 +84,7 @@ const user_info = () => {
               <Form.Item label="Address" name="address">
                 <Input
                   placeholder="Address"
-                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  className="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
                 />
               </Form.Item>
             </Col>
@@ -97,7 +94,7 @@ const user_info = () => {
               <Form.Item label="Full Name" name="fullName">
                 <Input
                   placeholder="Full Name"
-                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  className="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
                 />
               </Form.Item>
             </Col>
@@ -105,19 +102,19 @@ const user_info = () => {
               <Form.Item label="Phone Number" name="phone_number">
                 <Input
                   placeholder="Phone Number"
-                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  className="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
                 />
               </Form.Item>
             </Col>
             <Col span={8}>
               <Form.Item label="Date of Birth" name="date_of_birth">
-                <DatePicker className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
+                <DatePicker className="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline" />
               </Form.Item>
             </Col>
           </Row>
           <div className="flex justify-end">
             <Button type="primary" htmlType="submit" className="mt-4 bg-[#0071a9] mb-7">
-              Cập nhật
+              Update
             </Button>
           </div>
         </Form>

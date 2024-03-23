@@ -33,11 +33,8 @@ const RegisterForm = () => {
       className="bg-white p-8 rounded-md shadow-md"
       labelAlign="left"
     >
-      <div 
-      className='mb-4 cursor-pointer'
-      onClick={() => router.push('/login')}
-      >
-      <ArrowLeftOutlined />
+      <div className="mb-4 cursor-pointer" onClick={() => router.push('/login')}>
+        <ArrowLeftOutlined />
       </div>
       <h2 className="text-2xl font-bold mb-4">Đăng ký tài khoản</h2>
 
@@ -125,7 +122,7 @@ const RegisterForm = () => {
         <DatePicker placeholder="Ngày sinh" style={{ width: '100%' }} />
       </Form.Item>
 
-      <Form.Item className='flex justify-center'>
+      <Form.Item className="flex justify-center">
         <Button
           type="primary"
           htmlType="submit"

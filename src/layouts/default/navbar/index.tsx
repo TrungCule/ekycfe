@@ -7,7 +7,6 @@ import { RiBook3Line, RiCalendarEventLine, RiCopperDiamondLine } from 'react-ico
 import { MdOutlineTheaterComedy } from 'react-icons/md';
 import useAuth from '@/hooks/useAuth';
 
-
 export default function Navbar() {
   const router = useRouter();
   const [current, setCurrent] = useState(router.pathname);
@@ -30,14 +29,18 @@ export default function Navbar() {
       path: '/home',
       key: '/home',
     },
-    ...(userInfo?.role === 'admin' ? [{
-      icon: <MdOutlineTheaterComedy />,
-      key: '/users',
-      label: 'Quản lý người dùng',
-      path: '/users',
-    }] : []),
+    ...(userInfo?.role === 'admin'
+      ? [
+          {
+            icon: <MdOutlineTheaterComedy />,
+            key: '/users',
+            label: 'Quản lý người dùng',
+            path: '/users',
+          },
+        ]
+      : []),
   ];
-  
+
   return (
     <Menu
       className="bg-primary text-[#0071a9] border-none custom-menu text-[16px] h-full"

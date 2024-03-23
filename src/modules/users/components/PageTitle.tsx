@@ -1,8 +1,8 @@
 import React from 'react';
 
 interface Props {
-  title: String;
-  titleContent: String;
+  title: string;
+  titleContent: string;
 }
 
 const PageTitle: React.FC<Props> = ({ title, titleContent }) => {

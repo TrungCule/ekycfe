@@ -39,7 +39,7 @@ export default function RightHeader() {
       key: 'logout',
       label: 'Đăng xuất',
       icon: <LogOutIcon className="text-[2rem] inline-flex" />,
-    }
+    },
   ];
 
   const dispatch = useAppDispatch();
@@ -82,13 +82,11 @@ export default function RightHeader() {
             },
           }}
         >
-          <div className="flex items-center gap-x-3 hover:cursor-pointer py-2">
-            <Avatar className='bg-[#0071a9]' icon={<UserOutlined />} alt="avatar" size="large" />
+          <div className="flex items-center py-2 gap-x-3 hover:cursor-pointer">
+            <Avatar className="bg-[#0071a9]" icon={<UserOutlined />} alt="avatar" size="large" />
             <div className="flex flex-col justify-center">
-              <span className='text-[#627c92]'>Xin chào!</span>
-              <span className='text-black'>
-                {username}
-              </span>
+              <span className="text-[#627c92]">Xin chào!</span>
+              <span className="text-black">{username}</span>
             </div>
             <ArrowDownIcon className="text-xl text-white" />
           </div>
