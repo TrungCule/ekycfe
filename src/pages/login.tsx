@@ -70,7 +70,7 @@ export default function Login() {
     console.log(result);
     if (result?.error) return message.error(result?.error);
     localStorage.setItem('token', result?.id_token);
-    // localStorage.setItem('refresh_token', result?.refresh_token);
+    localStorage.setItem('refresh_token', result?.refreshToken);
     // }
     getAuth();
 

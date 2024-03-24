@@ -1,11 +1,11 @@
 import EditableCell from '@/components/EditableCell';
-import { deleteUser, getUsers, updateUser } from '@/services/puppetService';
+import { deleteUser, getUsers, getUsersSearch, updateUser } from '@/services/puppetService';
 import { useQuery } from '@tanstack/react-query';
 import { Button, Form, Input, message, Popconfirm, Table } from 'antd';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import CreateUser from './components/CreateUser';
 import { register } from '@/services/auth';
-import { set } from 'lodash';
+import { debounce, set } from 'lodash';
 import { useRouter } from 'next/router';
 
 const ROLE_MAP = {
@@ -14,7 +14,7 @@ const ROLE_MAP = {
 };
 
 export default function Users() {
-  // const [filteredUsers, setFilteredUsers] = useState([]);
+  const [filteredUsers, setFilteredUsers] = useState([]);
   const router = useRouter();
   const userColumns = [
     {
@@ -160,7 +160,7 @@ export default function Users() {
     setEditingKey('');
   };
 
-  const {
+  let {
     data: users,
     refetch,
     isFetching,
@@ -173,6 +173,7 @@ export default function Users() {
         return [];
       }
       console.log(res);
+      setFilteredUsers(res)
       return res;
     },
     {
@@ -210,25 +211,42 @@ export default function Users() {
     refetch();
   };
 
-  const handleSearch = (event) => {
+  const handleSearch = debounce(async (event) => {
     // console.log(.target.value)
-    setSearchTerm(event.target.value);
-    // setFilteredUsers(filteredUsers);
-  };
+
+    setSearchTerm(event.target.value)
+    const result = await getUsersSearch(event.target.value)
+    // console.log(result)
+    // users = []
+    // users = result
+    setFilteredUsers(result)
+
+
+    // refetch()
+    // setFilteredUsers(filteredUsers =>  filteredUsers
+    //     ? filteredUsers.filter(
+    //         (user) =>
+    //           user.login.includes(searchTerm) ||
+    //           user.firstName.includes(searchTerm) ||
+    //           user.lastName.includes(searchTerm) ||
+    //           user.phoneNumber.includes(searchTerm)
+    //       )
+    //     : []);
+  }, 200);
 
   const handleRefresh = () => {
     refetch();
   };
 
-  const filteredUsers = users
-    ? users.filter(
-        (user) =>
-          user.login.includes(searchTerm) ||
-          user.firstName.includes(searchTerm) ||
-          user.lastName.includes(searchTerm) ||
-          user.phoneNumber.includes(searchTerm)
-      )
-    : [];
+  // const filteredUsers = users
+  //   ? users.filter(
+  //       (user) =>
+  //         user.login.includes(searchTerm) ||
+  //         user.firstName.includes(searchTerm) ||
+  //         user.lastName.includes(searchTerm) ||
+  //         user.phoneNumber.includes(searchTerm)
+  //     )
+  //   : [];
 
   return (
     <div className="py-8 overflow-y-auto px-28 flex flex-col gap-4 items-start mx-auto min-w-full">
@@ -245,7 +263,7 @@ export default function Users() {
         </div>
       </div>
       <Form form={form} component={false}>
-        <div>Tổng số bản ghi: {users?.length}</div>
+        <div>Tổng số bản ghi: {filteredUsers?.length}</div>
         <Table
           className="w-full custom-table"
           rowKey={(record) => record.id}

@@ -1,4 +1,7 @@
+import { setUserName } from '@/store/auth';
+import { useAppDispatch } from '@/store/hook';
 import axios, { AxiosResponse, AxiosInstance, AxiosError } from 'axios';
+import { useRouter } from 'next/router';
 
 let isRefreshing = false;
 let failedQueue: any[] = [];
@@ -18,6 +21,9 @@ const processQueue = (error: AxiosError | null, token = null) => {
 
   failedQueue = [];
 };
+
+// const dispatch = useAppDispatch();
+// const router = useRouter()
 
 class ApiClient {
   baseURL: string;
@@ -85,14 +91,21 @@ class ApiClient {
             }
             isRefreshing = true;
 
-            const accessToken = await Auth.getRefreshToken();
-            if (accessToken) {
-              isRefreshing = false;
-              processQueue(null, accessToken);
-              if (config) return api(config);
+            try {
+              const accessToken = await Auth.getRefreshToken();
+              if (accessToken) {
+                isRefreshing = false;
+                processQueue(null, accessToken);
+                if (config) return api(config);
+              }
+            } catch (error) {
+              if (typeof window !== 'undefined') localStorage.clear();
+              // dispatch(setUserName({ user_name: null, role: null }));
+              // router.push('/login');
+              Auth.logout()
             }
 
-            return Promise.reject(error);
+            return errorCallback(401, dataError?.message || 'Có lỗi trong quá trình thực thi');
           default:
             return errorCallback(500, (resError && dataError?.message) || 'Có lỗi trong quá trình thực thi');
         }

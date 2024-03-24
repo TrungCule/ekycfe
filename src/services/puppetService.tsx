@@ -1,7 +1,11 @@
 import api from './index';
 
 export const getUsers = () => {
-  return api.get('/admin/users');
+  return api.get(`/admin/users`);
+};
+
+export const getUsersSearch = (q) => {
+  return api.get(`/admin/users/search?textSearch=${q}`);
 };
 
 export const updateUser = (params: any) => {
@@ -9,7 +13,7 @@ export const updateUser = (params: any) => {
 };
 
 export const adminUpdateUser = (params: any) => {
-  return api.post('/admin/users', params);
+  return api.put('/admin/users', params);
 };
 
 export const changePassword = (params: any) => {

@@ -28,12 +28,13 @@ const User = () => {
   const [loading, setLoading] = useState(true);
   const [imageLoading, setImageLoading] = useState(false);
   const [imageUrl, setImageUrl] = useState('');
+  const [role, setRole] = useState('');
 
   const router = useRouter();
   const { login } = router.query;
   const availableRoles = [
-    { id: 1, name: 'Người dùng' },
-    { id: 2, name: 'Quản trị viên' },
+    { id: 'ROLE_USER', name: 'Người dùng' },
+    { id: 'ROLE_ADMIN', name: 'Quản trị viên' },
   ];
   const activeSelect = [
     { value: true, name: 'Active' },
@@ -45,8 +46,15 @@ const User = () => {
       try {
         const resp: AxiosResponse<UserData> = await getDetailUser(login);
         // data.date_of_birth = moment(data?.date_of_birth); // Convert timestamp to moment
-        // resp.dateOfBirth = moment(resp.dateOfBirth)
+        if (resp.dateOfBirth) {
+          resp.dateOfBirth = moment(resp.dateOfBirth)
+        }
         console.log(resp);
+        if (resp.authorities?.includes("ROLE_ADMIN")) {
+          setRole("ROLE_ADMIN")
+        } else {
+          setRole("ROLE_USER")
+        }
         setData(resp);
         setLoading(false);
       } catch (error) {
@@ -70,8 +78,16 @@ const User = () => {
     values.role_id = values.role.id;
     delete values.role;
     console.log('Form values submitted:', values);
+console.log(userData)
+    const data = { ...userData, ...values }
 
-    const res: any = await adminUpdateUser(values);
+    if (role === "ROLE_ADMIN") {
+      data.authorities = ["ROLE_USER", "ROLE_ADMIN"]
+    } else {
+      data.authorities = ["ROLE_USER"]
+    }
+
+    const res: any = await adminUpdateUser(data);
 
     if (res.error) {
       return message.error(res?.error);
@@ -124,6 +140,11 @@ const User = () => {
       <div style={{ marginTop: 8 }}>Upload</div>
     </div>
   );
+
+  const handleChange = (value: string) => {
+    console.log(`selected ${value}`);
+    setRole(value)
+  };
 
   if (loading) {
     return <Spin />;
@@ -194,7 +215,7 @@ const User = () => {
           <Row gutter={16}>
             <Col span={8}>
               <Form.Item label="Role" name={['role', 'id']}>
-                <Select placeholder="Select a role" className="w-full" allowClear>
+                <Select defaultValue={role} placeholder="Select a role" className="w-full" allowClear onChange={handleChange}>
                   {availableRoles.map((role) => (
                     <Select.Option key={role.id} value={role.id}>
                       {role.name}
