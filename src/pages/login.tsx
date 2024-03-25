@@ -78,7 +78,7 @@ export default function Login() {
   };
 
   return (
-    <div className="flex items-center justify-center w-screen h-screen bg-slate-100">
+    <div className="flex items-center justify-center w-screen h-screen bg-slate-100 bg-[#c3d08b]">
       <div className="px-8 pt-12 pb-8 space-y-12 sm:shadow-xl sm:bg-white rounded-xl">
         <h1 className="text-2xl font-semibold">Login</h1>
         <Form onFinish={handleFinish}>

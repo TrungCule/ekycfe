@@ -5,5 +5,5 @@ interface IProps {
 }
 
 export default function DefaultLayout({ children }: IProps) {
-  return <main className="overflow-y-scroll content flex flex-col">{children}</main>;
+  return <main className="overflow-y-scroll content flex flex-col bg-[#c3d08b] min-h-full">{children}</main>;
 }

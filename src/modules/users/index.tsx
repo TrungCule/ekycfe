@@ -253,12 +253,12 @@ export default function Users() {
       <div className="flex justify-between gap-4 mb-4 w-full">
         <Input.Search className="w-[50%]" placeholder="Search..." onChange={handleSearch} />
         <div className="flex justify-center items-center gap-3">
-          <Button
+          {/* <Button
             className="bg-[#0071a9] text-[#ffffff] hover:bg-[#004f76] hover:text-[#ffffff]"
             onClick={() => setOpen(true)}
           >
-            Thêm người dùng
-          </Button>
+            Thêm người dùngs
+          </Button> */}
           <Button onClick={handleRefresh}>Refresh</Button>
         </div>
       </div>

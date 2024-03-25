@@ -20,8 +20,8 @@ export default function App({ Component, pageProps }) {
       <ConfigProvider theme={theme}>
         <QueryClientProvider client={queryClient}>
           <ErrorBoundary>
-            <div className="flex flex-col overflow-x-hidden max-h-[100vh]">
-              <main className="flex-1 flex flex-col overflow-y-hidden">
+            <div className="overflow-x-hidden max-h-[100vh] min-h-[100vh]">
+              <main className="">
                 {/* <Header>
                   <Navbar />
                 </Header> */}

@@ -18,17 +18,7 @@ const Author: React.FC<Props> = ({ renderContent }) => {
   const router = useRouter();
   const { userInfo } = useAuth();
 
-  const dispatch = useAppDispatch();
-
-  const getAuth = async () => {
-    const result: any = await getUserInfo();
-    if (result.error) message.error(result.error);
-    dispatch(setUserName(result.data));
-    setIsAllowed(hasPermission(router.pathname, result.data));
-  };
-
   useEffect(() => {
-    // getAuth()
     setIsAllowed(hasPermission(router.pathname, userInfo));
   }, [router, userInfo]);
 
@@ -40,8 +30,8 @@ const Author: React.FC<Props> = ({ renderContent }) => {
     );
 
   return (
-    <div className="flex overflow-x-hidden max-h-[100vh]">
-      <main className="flex flex-col flex-1 overflow-auto">
+    <div className="overflow-x-hidden max-h-[100vh]">
+      <main className="overflow-auto h-[100vh]">
         {!isAllowed ? (
           <div className="flex items-center justify-center flex-1">
             <Result status="403" title="403" subTitle="Xin lỗi, bạn không có quyền truy cập trang web này." />

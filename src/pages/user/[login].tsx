@@ -5,7 +5,6 @@ import { AxiosResponse } from 'axios';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import moment from 'moment';
-import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
 
 interface UserData {
   id: number;
@@ -26,8 +25,6 @@ interface UserData {
 const User = () => {
   const [userData, setData] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [imageLoading, setImageLoading] = useState(false);
-  const [imageUrl, setImageUrl] = useState('');
   const [role, setRole] = useState('');
 
   const router = useRouter();
@@ -36,10 +33,7 @@ const User = () => {
     { id: 'ROLE_USER', name: 'Người dùng' },
     { id: 'ROLE_ADMIN', name: 'Quản trị viên' },
   ];
-  const activeSelect = [
-    { value: true, name: 'Active' },
-    { value: false, name: 'Inactive' },
-  ];
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -64,15 +58,6 @@ const User = () => {
 
     fetchData();
   }, [login]);
-
-  // useEffect(() => {
-  //   if (userData && !userData.role) {
-  //     setData((prevUserData) => ({
-  //       ...prevUserData,
-  //       role: { id: 0, name: '' },
-  //     }));
-  //   }
-  // }, [userData]);
 
   const onFinish = async (values: any) => {
     values.role_id = values.role.id;
@@ -104,42 +89,6 @@ console.log(userData)
       }));
     }
   }, [userData]);
-
-  const handleUploadChange = async (info) => {
-    if (info.file.status === 'uploading') {
-      setImageLoading(true);
-      return;
-    }
-    if (info.file.status === 'done') {
-      const response = info.file.response;
-      setImageUrl(response.url);
-      setImageLoading(false);
-    } else if (info.file.status === 'error') {
-      setImageLoading(false);
-      message.error(`${info.file.name} file upload failed.`);
-    }
-  };
-
-  const beforeUpload = (file: File) => {
-    const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
-    if (!isJpgOrPng) {
-      message.error('You can only upload JPG/PNG file!');
-    }
-
-    const isLt2M = file.size / 1024 / 1024 < 2;
-    if (!isLt2M) {
-      message.error('Image must be smaller than 2MB!');
-    }
-
-    return isJpgOrPng && isLt2M;
-  };
-
-  const uploadButton = (
-    <div>
-      {imageLoading ? <LoadingOutlined /> : <PlusOutlined />}
-      <div style={{ marginTop: 8 }}>Upload</div>
-    </div>
-  );
 
   const handleChange = (value: string) => {
     console.log(`selected ${value}`);
@@ -225,34 +174,8 @@ console.log(userData)
               </Form.Item>
             </Col>
             <Col span={8}>
-              {/* <Form.Item label="Active" name="is_active">
-                <Select placeholder="Select a role" className="w-full" allowClear>
-                  {activeSelect.map((status) => (
-                    <Select.Option key={status.value} value={status.value}>
-                      {status.name}
-                    </Select.Option>
-                  ))}
-                </Select>
-              </Form.Item> */}
             </Col>
             <Col span={8}>
-              {/* <Form.Item label="Avatar" name="avatar">
-              <Upload
-                name="avatar"
-                listType="picture-card"
-                className="avatar-uploader"
-                showUploadList={false}
-                action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-                beforeUpload={beforeUpload}
-                onChange={handleUploadChange}
-              >
-                {imageUrl ? (
-                  <Image src={imageUrl} alt="avatar" style={{ width: '100%' }} />
-                ) : (
-                  uploadButton
-                )}
-              </Upload>
-          </Form.Item> */}
             </Col>
           </Row>
           <div className="flex justify-end">

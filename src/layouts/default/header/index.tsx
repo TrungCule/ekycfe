@@ -32,9 +32,9 @@ export default function Header({ children }: IProps) {
           <div className="text-[3rem] mr-5 inline-flex">
             <div onClick={navigateToHome}></div>
           </div>
+          <div className="block items-center w-full max-w-[80%] h-[64px]">{children}</div>
           <RightHeader />
         </div>
-        <div className="block items-center w-full max-w-[80%] h-[64px]">{children}</div>
       </div>
     </div>
   );
