@@ -1,5 +1,5 @@
 import EditableCell from '@/components/EditableCell';
-import { deleteUser, getUsers, getUsersSearch, updateUser } from '@/services/puppetService';
+import { deleteUser, exportUsers, getUsers, getUsersSearch, updateUser } from '@/services/puppetService';
 import { useQuery } from '@tanstack/react-query';
 import { Button, Form, Input, message, Popconfirm, Table } from 'antd';
 import { useEffect, useState } from 'react';
@@ -7,6 +7,8 @@ import CreateUser from './components/CreateUser';
 import { register } from '@/services/auth';
 import { debounce, set } from 'lodash';
 import { useRouter } from 'next/router';
+import * as FileSaver from "file-saver";
+import * as XLSX from "xlsx";
 
 const ROLE_MAP = {
   admin: 'Quản trị viên',
@@ -147,6 +149,11 @@ export default function Users() {
   const [editingKey, setEditingKey] = useState('');
   const [open, setOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
+  const [pageNumber, setPageNumber] = useState(1);
+  const [pageSize, setPageSize] = useState(3);
+  const fileType =
+    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8";
+  const fileExtension = ".xlsx";
 
   const isEditing = (record) => record.id === editingKey;
   const edit = (record) => {
@@ -238,6 +245,36 @@ export default function Users() {
     refetch();
   };
 
+  const handleExportUsers = async () => {
+    const param: { pageNumber: number, pageSize: number, textSearch: string, typeName: string } = {
+        pageNumber: pageNumber,
+        pageSize: pageSize,
+        textSearch: searchTerm,
+        typeName: ""
+    }
+    const result: any = await exportUsers(param);
+    if (result.error) return message.error(result.error);
+    console.log(result)
+
+    exportToCSV(result, "test");
+  }
+  const exportToCSV = (apiData, fileName) => {
+    const blob = new Blob([apiData], {type: "application/vnd.ms-excel;charset=utf-8"});
+    FileSaver.saveAs(blob, fileName + fileExtension);
+
+    // const ws = XLSX.utils.json_to_sheet(apiData);
+    // const wb = { Sheets: { data: ws }, SheetNames: ["data"] };
+    // const excelBuffer = XLSX.write(wb, { bookType: "xlsx", type: "array" });
+    // const data = new Blob([excelBuffer], { type: fileType });
+    // FileSaver.saveAs(data, fileName + fileExtension);
+  };
+
+  const handlePageChanged = ({ current, pageSize }) => {
+    console.log(pageNumber, pageSize)
+    setPageNumber(current)
+    setPageSize(pageSize)
+  }
+
   // const filteredUsers = users
   //   ? users.filter(
   //       (user) =>
@@ -259,6 +296,12 @@ export default function Users() {
           >
             Thêm người dùngs
           </Button> */}
+          <Button
+            className="bg-[#0071a9] text-[#ffffff] hover:bg-[#004f76] hover:text-[#ffffff]"
+            onClick={handleExportUsers}
+          >
+            Export
+          </Button>
           <Button onClick={handleRefresh}>Refresh</Button>
         </div>
       </div>
@@ -273,12 +316,14 @@ export default function Users() {
             },
           }}
           pagination={{
+            current: pageNumber,
             total: filteredUsers?.length,
-            defaultPageSize: 3, // Change this to the number of items you want per page
+            defaultPageSize: pageSize, // Change this to the number of items you want per page
           }}
           columns={mergedColumns}
           dataSource={filteredUsers}
           loading={isFetching}
+          onChange={handlePageChanged}
         />
       </Form>
       <CreateUser open={open} onOk={handleAddNew} onCancel={() => setOpen(false)}></CreateUser>

@@ -53,6 +53,7 @@
     "autoprefixer": "^10.4.13",
     "cross-env": "^7.0.3",
     "eslint-config-prettier": "^8.6.0",
+    "file-saver": "^2.0.5",
     "husky": "^8.0.3",
     "lint-staged": "^13.1.2",
     "postcss": "^8.4.21",
@@ -61,7 +62,8 @@
     "stylelint": "^15.1.0",
     "stylelint-config-prettier-scss": "^0.0.1",
     "stylelint-config-standard-scss": "^7.0.1",
-    "tailwindcss": "^3.2.6"
+    "tailwindcss": "^3.2.6",
+    "xlsx": "^0.18.5"
   },
   "lint-staged": {
     "*.{js,ts,tsx,css,scss}": [

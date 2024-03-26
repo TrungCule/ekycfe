@@ -35,3 +35,7 @@ export const getUserInfo = () => {
 export const getDetailUser = (login: string) => {
   return api.get(`/admin/users/${login}`);
 };
+
+export const exportUsers = (param: { pageNumber: number, pageSize: number, textSearch: string, typeName: string }) => {
+  return api.post(`/admin/users/export-excel`, param);
+};
